@@ -41,6 +41,12 @@ h2o:
   
   # H2O install dir, optional (default: /usr/local)
   h2o_root: "/path/to/h2o"
+  
+  # `on` if H2O use bundled LibreSSL.
+  bundled_ssl: on
+
+  # `on` if H2O use mruby.
+  mruby: on
 ```
 
 ## License
