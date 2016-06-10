@@ -2,8 +2,10 @@ include_recipe 'h2o::dependency'
 
 version = node[:h2o][:version]
 
-remote_file "/tmp/h2o-#{version}.tar.gz" do
-  source "https://github.com/h2o/h2o/archive/v#{version}.tar.gz"
+execute 'Download a H2O' do
+  command "wget https://github.com/h2o/h2o/archive/v#{version}.tar.gz"
+  cwd "/tmp"
+  not_if "test -e /tmp/v#{version}.tar.gz"
 end
 
 execute 'Unzip Tar file' do
