@@ -9,9 +9,9 @@ execute 'Download a H2O' do
 end
 
 execute 'Unzip Tar file' do
-  command "tar xzvf h2o-#{version}.tar.gz"
+  command "tar xzvf v#{version}.tar.gz"
   cwd "/tmp"
-  not_if "test -e /tmp/h2o#{version}.tar.gz"
+  not_if "test -e /tmp/v#{version}.tar.gz"
 end
 
 execute 'Cmake a h2o' do
