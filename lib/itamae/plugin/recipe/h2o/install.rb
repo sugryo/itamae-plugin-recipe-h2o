@@ -37,7 +37,8 @@ execute 'Cmake a h2o' do
   install_prefix ||= node[:h2o][:install_prefix]
   options << " -DCMAKE_INSTALL_PREFIX=#{install_prefix}" if install_prefix
   
-  command "cmake #{options.join}"
+  
+  command "cmake#{options.join} ."
   cwd "/tmp/h2o-#{version}"
   only_if "test -e /tmp/h2o-#{version}"
 end
