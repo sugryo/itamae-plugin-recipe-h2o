@@ -16,23 +16,19 @@ end
 
 execute 'Cmake a h2o' do
   options = []
-  case node[:h2o][:bundled_ssl]
-  when 'on'
+  if node[:h2o][:bundled_ssl]
     options << ' -DWITH_BUNDLED_SSL=on'
-  when 'off'
+  else
     options << ' -DWITH_BUNDLED_SSL=off'
-  else
-    # Default: off if OpenSSL version >= 1.0.2 is found, on if otherwise.
   end
+  # Default: off if OpenSSL version >= 1.0.2 is found, on if otherwise.
 
-  case node[:h2o][:mruby]
-  when 'on'
+  if node[:h2o][:mruby]
     options << ' -DWITH_MRUBY=on'
-  when 'off'
-    options << ' -DWITH_MRUBY=off'
   else
-    # Default: on if bison, ruby and development files is found, off if otherwise.
+    options << ' -DWITH_MRUBY=off'
   end
+  # Default: on if bison, ruby and development files is found, off if otherwise.
 
   install_prefix ||= node[:h2o][:install_prefix]
   options << " -DCMAKE_INSTALL_PREFIX=#{install_prefix}" if install_prefix
