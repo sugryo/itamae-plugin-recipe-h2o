@@ -11,7 +11,7 @@ end
 execute 'Unzip Tar file' do
   command "tar xzvf v#{version}.tar.gz"
   cwd "/tmp"
-  not_if "test -e /tmp/v#{version}.tar.gz"
+  not_if "test -e /tmp/h2o-#{version}"
 end
 
 execute 'Cmake a h2o' do
