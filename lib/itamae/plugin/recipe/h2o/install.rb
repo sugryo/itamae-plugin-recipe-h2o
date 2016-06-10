@@ -39,7 +39,7 @@ execute 'Cmake a h2o' do
   
   command "cmake #{options.join}"
   cwd "/tmp/h2o-#{version}"
-  not_if "test -e /tmp/h2o-#{version}"
+  only_if "test -e /tmp/h2o-#{version}"
 end
 
 execute 'Make a h2o' do
@@ -49,11 +49,11 @@ execute 'Make a h2o' do
     command "make -j$(grep '^processor' /proc/cpuinfo | wc -l)"
   end
   cwd "/tmp/h2o-#{version}"
-  not_if "test -e /tmp/h2o-#{version}"
+  only_if "test -e /tmp/h2o-#{version}"
 end
 
 execute 'Install a h2o' do
   command 'sudo make install'
   cwd "/tmp/h2o-#{version}"
-  not_if "test -e /tmp/h2o-#{version}"
+  only_if "test -e /tmp/h2o-#{version}"
 end
