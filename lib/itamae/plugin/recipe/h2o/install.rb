@@ -6,12 +6,14 @@ execute 'Download a H2O' do
   command "wget https://github.com/h2o/h2o/archive/v#{version}.tar.gz"
   cwd "/tmp"
   not_if "test -e /tmp/v#{version}.tar.gz"
+  not_if 'type h2o'
 end
 
 execute 'Unzip Tar file' do
   command "tar xzvf v#{version}.tar.gz"
   cwd "/tmp"
   not_if "test -e /tmp/h2o-#{version}"
+  not_if 'type h2o'
 end
 
 execute 'Cmake a h2o' do
@@ -37,6 +39,7 @@ execute 'Cmake a h2o' do
   command "cmake#{options.join} ."
   cwd "/tmp/h2o-#{version}"
   only_if "test -e /tmp/h2o-#{version}"
+  not_if 'type h2o'
 end
 
 execute 'Make a h2o' do
@@ -47,10 +50,12 @@ execute 'Make a h2o' do
   end
   cwd "/tmp/h2o-#{version}"
   only_if "test -e /tmp/h2o-#{version}"
+  not_if 'type h2o'
 end
 
 execute 'Install a h2o' do
   command 'sudo make install'
   cwd "/tmp/h2o-#{version}"
   only_if "test -e /tmp/h2o-#{version}"
+  not_if 'type h2o'
 end
