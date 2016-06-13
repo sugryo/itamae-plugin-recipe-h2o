@@ -18,12 +18,14 @@ end
 
 execute 'Cmake a h2o' do
   options = []
-  if node[:h2o][:bundled_ssl]
+  case node[:h2o][:bundled_ssl]
+  when true
     options << ' -DWITH_BUNDLED_SSL=on'
-  else
+  when false
     options << ' -DWITH_BUNDLED_SSL=off'
+  else
+    # Default: off if OpenSSL version >= 1.0.2 is found, on if otherwise.
   end
-  # Default: off if OpenSSL version >= 1.0.2 is found, on if otherwise.
 
   if node[:h2o][:mruby]
     options << ' -DWITH_MRUBY=on'
