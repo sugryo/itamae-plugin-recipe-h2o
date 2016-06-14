@@ -45,8 +45,8 @@ h2o:
   # `true` if H2O use bundled LibreSSL.
   bundled_ssl: true
 
-  # `on` if H2O use mruby.
-  mruby: on
+  # `true` if H2O use mruby.
+  mruby: true
 ```
 
 ## License
